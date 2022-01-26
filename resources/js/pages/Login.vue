@@ -49,9 +49,13 @@ export default {
 
     methods: {
         login() {
-            this.authService.login(this.form).then(() => {
-                this.isIncorrect = '';
-                this.$router.push('/dashboard');
+            this.authService.login(this.form).then((response) => {
+                if(response){
+                    this.isIncorrect = '';
+                    this.$router.push('/dashboard');
+                } else {
+                    this.isIncorrect = 'The given data was invalid.'
+                }
             }).catch((error) => {
                 this.isIncorrect = error.response.data.message;
             })

@@ -12,7 +12,7 @@
                     <router-link to="/register" class="navbar-dark navbar-nav nav-link">Register</router-link>
                 </b-navbar-nav>
                 <b-navbar-nav v-if="isLoggedIn" class="ml-auto">
-                    <b-nav-item @click="logout" class="navbar-dark navbar-nav nav-link">Log Out</b-nav-item>
+                    <b-nav-item @click="logout" class="navbar-dark navbar-nav nav-link p-0">Log Out</b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>

@@ -23,6 +23,8 @@ class UserController extends Controller
         ]);
 
         $result = User::create([
+            'first_name' => $request->firstName ?? null,
+            'last_name' => $request->lastName ?? null,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
@@ -47,8 +49,16 @@ class UserController extends Controller
             'error' => ['The given data was invalid.']
         ]);
     }
+
     public function logout()
     {
         Auth::logout();
+    }
+
+
+    public function getUser(){
+        $user = Auth::user()->with(['experience', 'organization'])->get();
+
+        return response()->json($user[0]);
     }
 }
