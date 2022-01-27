@@ -17,8 +17,8 @@ class Experience extends Model
 
     protected $fillable = [
         'user_id',
-        'organization_name',
-        'association',
+        'company_name',
+        'role',
         'start_date',
         'end_date',
         'present',

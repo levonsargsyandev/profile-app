@@ -6,7 +6,6 @@
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
             <b-collapse id="nav-collapse" is-nav>
-                <!-- Right aligned nav items -->
                 <b-navbar-nav v-if="!isLoggedIn" class="ml-auto">
                     <router-link to="/login" class="navbar-dark navbar-nav nav-link">Log In</router-link>
                     <router-link to="/register" class="navbar-dark navbar-nav nav-link">Register</router-link>
@@ -24,28 +23,28 @@ import AuthService from "../services/AuthService";
 
 export default {
     name: "NavBar",
-    props: {
-        isLoggedIn: {
-            type: Boolean,
-            required: true
-        }
-    },
 
-    data(){
-        return{
+    data() {
+        return {
+            isLoggedIn: false,
             authService: null
-
         }
     },
 
     mounted() {
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.isLoggedIn = Boolean(this.user);
         this.authService = new AuthService();
     },
 
     methods: {
         logout() {
-            this.authService.logout(this.form).then(() => {
-                this.$router.push('/');
+            this.authService.logout().then(() => {
+                localStorage.removeItem('user');
+                this.isLoggedIn = false;
+                if(this.$router.currentRoute.path !== '/'){
+                    this.$router.push('/');
+                }
             })
         },
     }

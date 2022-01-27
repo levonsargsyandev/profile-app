@@ -1,7 +1,6 @@
 <template>
     <div>
-        <NavBar :is-logged-in="false"></NavBar>
-        Home
+        <NavBar></NavBar>
     </div>
 </template>
 

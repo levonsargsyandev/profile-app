@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
+        'id',
         'first_name',
         'last_name',
         'email',
@@ -46,12 +47,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function experience()
+    public function experiences()
     {
-        return $this->hasMany(Experience::class)->orderBy('updated_at');
+        return $this->hasMany(Experience::class);
     }
 
-    public function organization()
+    public function organizations()
     {
         return $this->hasMany(Organization::class);
     }

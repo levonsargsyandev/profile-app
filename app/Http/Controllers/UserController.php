@@ -19,18 +19,18 @@ class UserController extends Controller
     {
         $request->validate([
             'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'confirmed']
+            'password' => ['required', 'confirmed', 'min:6']
         ]);
 
-        $result = User::create([
+        $response = User::create([
             'first_name' => $request->firstName ?? null,
             'last_name' => $request->lastName ?? null,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
 
-        if($result){
-            $this->login($request);
+        if ($response) {
+            return response()->json(['success' => true]);
         }
     }
 
@@ -41,8 +41,8 @@ class UserController extends Controller
             'password' => ['required']
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'))){
-            return response()->json(['success' => true]);
+        if (Auth::attempt($request->only('email', 'password'))) {
+            return response()->json(['success' => true, 'user' => Auth::user()]);
         }
 
         throw ValidationException::withMessages([
@@ -55,10 +55,24 @@ class UserController extends Controller
         Auth::logout();
     }
 
+    public function updateUser(Request $request)
+    {
+        if($request->email !== $request->user()->email){
+            $request->validate([
+                'email' => ['required', 'email', 'unique:users']
+            ]);
+        }
 
-    public function getUser(){
-        $user = Auth::user()->with(['experience', 'organization'])->get();
+        $user = User::findOrFail($request->user()->id);
 
-        return response()->json($user[0]);
+        $response = $user->update([
+            'first_name' => $request->firstName,
+            'last_name' => $request->lastName,
+            'email' => $request->email
+        ]);
+
+        if ($response) {
+            return response()->json(['success' => true, 'user' => $user]);
+        }
     }
 }

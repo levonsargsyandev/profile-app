@@ -2,19 +2,19 @@
     <div class="register-form-block">
         <h3 class="text-center mb-4">Register</h3>
         <b-form @submit.prevent="onSubmit">
-            <b-form-group>
+            <b-form-group label="First Name">
                 <b-form-input
                     v-model="form.firstName"
                     placeholder="First Name"
                 ></b-form-input>
             </b-form-group>
-            <b-form-group>
+            <b-form-group label="Last Name">
                 <b-form-input
                     v-model="form.lastName"
                     placeholder="Last name"
                 ></b-form-input>
             </b-form-group>
-            <b-form-group>
+            <b-form-group label="Email *">
                 <b-form-input
                     v-model="form.email"
                     type="email"
@@ -23,10 +23,10 @@
                 ></b-form-input>
                 <p v-if="errors.email" class="text-danger small px-1 pt-1">{{ errors.email[0] }}</p>
             </b-form-group>
-            <b-form-group>
+            <b-form-group label="Password (min 6 symbols) *">
                 <b-form-input
                     v-model="form.password"
-                    placeholder="Password"
+                    placeholder="Password (min 6 symbols)"
                     required
                 ></b-form-input>
             </b-form-group>
@@ -37,6 +37,7 @@
                     required
                 ></b-form-input>
                 <p v-if="errors.password" class="text-danger small px-1 pt-1">{{ errors.password[0] }}</p>
+                <p v-if="isIncorrect && !errors.password" class="text-danger small px-1 pt-1">{{ isIncorrect }}</p>
             </b-form-group>
 
             <div class="mt-4">
@@ -62,7 +63,8 @@ export default {
                 password_confirmation: ''
             },
             authService: null,
-            errors: []
+            errors: [],
+            isIncorrect: ''
         }
     },
 
@@ -72,8 +74,23 @@ export default {
 
     methods: {
         onSubmit() {
-            this.authService.register(this.form).then(() => {
-                this.$router.push('/dashboard');
+            this.authService.register(this.form).then((response) => {
+                if(response.data.success){
+                    this.authService.auth().then(()=> {
+                        this.authService.login(this.form).then((response) => {
+                            if (response && response.data.success) {
+                                this.isIncorrect = '';
+                                let user = JSON.stringify(response.data.user);
+                                localStorage.setItem('user', user);
+                                this.$router.push('/dashboard');
+                            } else {
+                                this.isIncorrect = 'The given data was invalid.';
+                            }
+                        }).catch((error) => {
+                            this.isIncorrect = error.response.data.message;
+                        })
+                    })
+                }
             }).catch((error) => {
                 this.errors = error.response.data.errors;
             })

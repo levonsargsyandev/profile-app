@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\ExperienceController;
+use \App\Http\Controllers\OrganizationController;
 
 
 /*
@@ -17,11 +18,17 @@ use \App\Http\Controllers\UserController;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('user', [UserController::class, 'getUser']);
-    Route::post('logout', [UserController::class, 'logout']);
+    Route::post('user', [UserController::class, 'updateUser']);
+    Route::get('experiences', [ExperienceController::class, 'getExperiences']);
+    Route::post('experiences', [ExperienceController::class, 'createExperience']);
+    Route::get('organizations', [OrganizationController::class, 'getOrganizations']);
+    Route::post('organizations', [OrganizationController::class, 'createOrganization']);
+    Route::put('experiences/{experienceId}', [ExperienceController::class, 'updateExperience']);
+    Route::put('organizations/{organizationId}', [OrganizationController::class, 'updateOrganization']);
 });
 
 
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
+Route::post('logout', [UserController::class, 'logout']);

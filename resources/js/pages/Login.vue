@@ -2,7 +2,7 @@
     <div class="login-form-block">
         <h3 class="text-center mb-4">Login</h3>
         <b-form @submit.prevent="login">
-            <b-form-group>
+            <b-form-group label="Email *">
                 <b-form-input
                     v-model="form.email"
                     type="email"
@@ -10,7 +10,7 @@
                     required
                 ></b-form-input>
             </b-form-group>
-            <b-form-group>
+            <b-form-group label="Password *">
                 <b-form-input
                     v-model="form.password"
                     placeholder="Password"
@@ -38,7 +38,7 @@ export default {
                 email: '',
                 password: ''
             },
-            isIncorrect: false,
+            isIncorrect: '',
             authService: null
         }
     },
@@ -49,17 +49,20 @@ export default {
 
     methods: {
         login() {
-            this.authService.login(this.form).then((response) => {
-                if(response){
-                    this.isIncorrect = '';
-                    this.$router.push('/dashboard');
-                } else {
-                    this.isIncorrect = 'The given data was invalid.'
-                }
-            }).catch((error) => {
-                this.isIncorrect = error.response.data.message;
+            this.authService.auth().then(()=> {
+                this.authService.login(this.form).then((response) => {
+                    if (response && response.data.success) {
+                        this.isIncorrect = '';
+                        let user = JSON.stringify(response.data.user);
+                        localStorage.setItem('user', user);
+                        this.$router.push('/dashboard');
+                    } else {
+                        this.isIncorrect = 'The given data was invalid.';
+                    }
+                }).catch((error) => {
+                    this.isIncorrect = error.response.data.message;
+                })
             })
-
         },
     }
 }
