@@ -23,7 +23,7 @@
             <h3 class="mb-4">Work Experience</h3>
 
             <div>
-                <b-button v-b-modal.modal-create-experience class="my-3">Create Experience</b-button>
+                <b-button v-b-modal.modal-create-experience class="my-3 btn-success">Create Experience</b-button>
             </div>
 
             <div>
@@ -105,7 +105,7 @@
                 <h3 class="mb-4">Organization Associations</h3>
 
                 <div>
-                    <b-button v-b-modal.modal-create-organization class="my-3">Create Organization Association
+                    <b-button v-b-modal.modal-create-organization class="my-3 btn-success">Create Organization Association
                     </b-button>
                 </div>
 

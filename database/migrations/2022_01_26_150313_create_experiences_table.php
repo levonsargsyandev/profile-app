@@ -21,7 +21,7 @@ class CreateExperiencesTable extends Migration
             $table->string('role');
             $table->dateTime('start_date');
             $table->dateTime('end_date')->nullable();
-            $table->boolean('present')->default(0);
+            $table->boolean('present')->nullable()->default(0);
             $table->text('description')->nullable();
             $table->timestamps();
         });

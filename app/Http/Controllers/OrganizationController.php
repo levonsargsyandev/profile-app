@@ -19,10 +19,10 @@ class OrganizationController extends Controller
      * @return JsonResponse
      */
 
-    public function index(Request $request): JsonResponse
+    public function index(Request $request, $statusCode = 200): JsonResponse
     {
         $organizations = Organization::where('user_id', $request->user()->id)->orderBy('created_at', 'desc')->get();
-        return response()->json(['success' => true, 'organizations' => $organizations]);
+        return response()->json(['success' => true, 'organizations' => $organizations], $statusCode);
     }
 
 
@@ -35,7 +35,7 @@ class OrganizationController extends Controller
 
     public function store(OrganizationRequest $request): JsonResponse
     {
-        $response = Organization::create([
+        $organization = [
             'user_id' => $request->user()->id,
             'organization_name' => $request->organizationName,
             'association' => $request->association,
@@ -43,10 +43,12 @@ class OrganizationController extends Controller
             'end_date' => $request->endDate,
             'present' => $request->present,
             'description' => $request->description
-        ]);
+        ];
+
+        $response = Organization::create($organization);
 
         if ($response) {
-            return response()->json(['success' => true]);
+            return response()->json(['success' => true, 'organization' => $organization], 201);
         }
 
         return response()->json(['success' => false]);
@@ -74,7 +76,7 @@ class OrganizationController extends Controller
         ]);
 
         if ($response) {
-            return $this->index($request);
+            return $this->index($request, 201);
         }
 
         return response()->json(['success' => false]);

@@ -41,7 +41,7 @@ class ExperienceRequest extends FormRequest
                 'nullable',
                 'string',
                 new MaxWords(300),
-            ],
+            ]
         ];
     }
 }

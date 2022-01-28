@@ -41,7 +41,7 @@ class OrganizationRequest extends FormRequest
                 'nullable',
                 'string',
                 new MaxWords(100),
-            ],
+            ]
         ];
     }
 }

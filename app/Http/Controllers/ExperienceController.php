@@ -21,10 +21,10 @@ class ExperienceController extends Controller
      * @return JsonResponse
      */
 
-    public function index(Request $request): JsonResponse
+    public function index(Request $request, $statusCode = 200): JsonResponse
     {
         $experiences = Experience::where('user_id', $request->user()->id)->orderBy('created_at', 'desc')->get();
-        return response()->json(['success' => true, 'experiences' => $experiences]);
+        return response()->json(['success' => true, 'experiences' => $experiences], $statusCode);
     }
 
 
@@ -37,7 +37,7 @@ class ExperienceController extends Controller
 
     public function store(ExperienceRequest $request): JsonResponse
     {
-        $response = Experience::create([
+        $experience = [
             'user_id' => $request->user()->id,
             'company_name' => $request->companyName,
             'role' => $request->role,
@@ -45,10 +45,12 @@ class ExperienceController extends Controller
             'end_date' => $request->endDate,
             'present' => $request->present,
             'description' => $request->description
-        ]);
+        ];
+
+        $response = Experience::create($experience);
 
         if ($response) {
-            return response()->json(['success' => true]);
+            return response()->json(['success' => true, 'experience' => $experience], 201);
         }
 
         return response()->json(['success' => false]);
@@ -77,7 +79,7 @@ class ExperienceController extends Controller
         ]);
 
         if ($response) {
-            return $this->index($request);
+            return $this->index($request, 201);
         }
 
         return response()->json(['success' => false]);
