@@ -1,66 +1,57 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Installation
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+- Clone the project from [git link](https://github.com/levonsargsyandev/profile-app).
+- Open terminal from project directory
+- Run <span style="color:#b54522;">composer install</span>
+- Create <span style="color:#b54522;">.env</span> file from <span style="color:#b54522;">.env.example</span> instance in the root directory of the project
+- Create a new database and fill <span style="color:#b54522;">DB_DATABASE</span>, <span style="color:#b54522;">DB_USERNAME</span> and <span style="color:#b54522;">DB_PASSWORD</span> fields in the <span style="color:#b54522;">.env</span> file.
+- Run <span style="color:#b54522;">php artisan migrate</span>
+- Run <span style="color:#b54522;">php artisan key:generate</span>
+- Run <span style="color:#b54522;">npm install</span>
+- Run <span style="color:#b54522;">php artisan serve</span>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Answers to questions
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**1. What was your approach to this project? Did it change as you developed the app further?**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+*My approach to this project was to create clear, readable code. To complete all task requirements and finish on deadline. Since this is a test assignment, I would change my approach in the case of a real project.*
 
-## Learning Laravel
+**2. What were the challenges you faced?**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+*The challenges were to create authentication with Laravel sanctum, validate the data on the backend part, run the application on a live server.*
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**3. How differently will you do if you had a couple of more days to complete the assignment? What if you have one full month?**
 
-## Laravel Sponsors
+*I don't think this task would have taken a whole month anyway but if I had more time to complete it, I would do the following important improvements.*
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+Front end
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+- have a separate front end directory with Vue CLI or React
 
-## Contributing
+- change component system and split into more reusable components
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- forms validation
 
-## Code of Conduct
+- write test cases for components
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- redesign
 
-## Security Vulnerabilities
+Back end
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- have a separate back end directory with Laravel as an API
 
-## License
+- more strong authentication system
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- make separate FormRequest files for each request
+
+- throw error or success messages describing in detail to the client-side
+
+- more and detailed test cases
+
+
+## Live Demo Link
+
+
+
