@@ -4,16 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ExperienceRequest;
 use App\Models\Experience;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+
+/**
+ * Class ExperienceController
+ */
 class ExperienceController extends Controller
 {
-    public function getExperiences(Request $request){
+
+    /**
+     * Display a listing of the experiences of the auth user.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function index(Request $request): JsonResponse
+    {
         $experiences = Experience::where('user_id', $request->user()->id)->orderBy('created_at', 'desc')->get();
         return response()->json(['success' => true, 'experiences' => $experiences]);
     }
 
-    public function createExperience(ExperienceRequest $request)
+
+    /**
+     * Create an experience.
+     *
+     * @param ExperienceRequest $request
+     * @return JsonResponse
+     */
+
+    public function store(ExperienceRequest $request): JsonResponse
     {
         $response = Experience::create([
             'user_id' => $request->user()->id,
@@ -28,9 +50,20 @@ class ExperienceController extends Controller
         if ($response) {
             return response()->json(['success' => true]);
         }
+
+        return response()->json(['success' => false]);
     }
 
-    public function updateExperience(ExperienceRequest $request, $experienceId)
+
+    /**
+     * Update the specified experience.
+     *
+     * @param ExperienceRequest $request
+     * @param int $experienceId
+     * @return JsonResponse
+     */
+
+    public function update(ExperienceRequest $request, int $experienceId): JsonResponse
     {
         $experience = Experience::findOrFail($experienceId);
 
@@ -44,7 +77,9 @@ class ExperienceController extends Controller
         ]);
 
         if ($response) {
-            return $this->getExperiences($request);
+            return $this->index($request);
         }
+
+        return response()->json(['success' => false]);
     }
 }

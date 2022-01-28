@@ -2,17 +2,12 @@
     <div class="register-form-block">
         <h3 class="text-center mb-4">Register</h3>
         <b-form @submit.prevent="onSubmit">
-            <b-form-group label="First Name">
+            <b-form-group label="First Name *">
                 <b-form-input
                     v-model="form.firstName"
                     placeholder="First Name"
                 ></b-form-input>
-            </b-form-group>
-            <b-form-group label="Last Name">
-                <b-form-input
-                    v-model="form.lastName"
-                    placeholder="Last name"
-                ></b-form-input>
+                <p v-if="errors.firstName" class="text-danger small px-1 pt-1">{{ errors.firstName[0] }}</p>
             </b-form-group>
             <b-form-group label="Email *">
                 <b-form-input
@@ -37,7 +32,6 @@
                     required
                 ></b-form-input>
                 <p v-if="errors.password" class="text-danger small px-1 pt-1">{{ errors.password[0] }}</p>
-                <p v-if="isIncorrect && !errors.password" class="text-danger small px-1 pt-1">{{ isIncorrect }}</p>
             </b-form-group>
 
             <div class="mt-4">
@@ -57,14 +51,12 @@ export default {
         return {
             form: {
                 firstName: '',
-                lastName: '',
                 email: '',
                 password: '',
                 password_confirmation: ''
             },
             authService: null,
-            errors: [],
-            isIncorrect: ''
+            errors: []
         }
     },
 
@@ -78,16 +70,11 @@ export default {
                 if(response.data.success){
                     this.authService.auth().then(()=> {
                         this.authService.login(this.form).then((response) => {
-                            if (response && response.data.success) {
-                                this.isIncorrect = '';
+                            if (response.data.success) {
                                 let user = JSON.stringify(response.data.user);
                                 localStorage.setItem('user', user);
                                 this.$router.push('/dashboard');
-                            } else {
-                                this.isIncorrect = 'The given data was invalid.';
                             }
-                        }).catch((error) => {
-                            this.isIncorrect = error.response.data.message;
                         })
                     })
                 }

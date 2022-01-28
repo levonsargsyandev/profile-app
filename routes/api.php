@@ -5,7 +5,6 @@ use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\ExperienceController;
 use \App\Http\Controllers\OrganizationController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,16 +17,10 @@ use \App\Http\Controllers\OrganizationController;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::resource('experiences', ExperienceController::class)->only(['index', 'store', 'update']);
+    Route::resource('organizations', OrganizationController::class)->only(['index', 'store', 'update']);
     Route::post('user', [UserController::class, 'updateUser']);
-    Route::get('experiences', [ExperienceController::class, 'getExperiences']);
-    Route::post('experiences', [ExperienceController::class, 'createExperience']);
-    Route::get('organizations', [OrganizationController::class, 'getOrganizations']);
-    Route::post('organizations', [OrganizationController::class, 'createOrganization']);
-    Route::put('experiences/{experienceId}', [ExperienceController::class, 'updateExperience']);
-    Route::put('organizations/{organizationId}', [OrganizationController::class, 'updateOrganization']);
 });
-
-
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);

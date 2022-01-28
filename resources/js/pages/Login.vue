@@ -51,7 +51,7 @@ export default {
         login() {
             this.authService.auth().then(()=> {
                 this.authService.login(this.form).then((response) => {
-                    if (response && response.data.success) {
+                    if (response.data.success) {
                         this.isIncorrect = '';
                         let user = JSON.stringify(response.data.user);
                         localStorage.setItem('user', user);

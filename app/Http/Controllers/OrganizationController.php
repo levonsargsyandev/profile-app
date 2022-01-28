@@ -4,17 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrganizationRequest;
 use App\Models\Organization;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * Class OrganizationController
+ */
 class OrganizationController extends Controller
 {
+    /**
+     * Display a listing of the organizations of the auth user.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
 
-    public function getOrganizations(Request $request){
+    public function index(Request $request): JsonResponse
+    {
         $organizations = Organization::where('user_id', $request->user()->id)->orderBy('created_at', 'desc')->get();
         return response()->json(['success' => true, 'organizations' => $organizations]);
     }
 
-    public function createOrganization(OrganizationRequest $request)
+
+    /**
+     * Create an organization.
+     *
+     * @param OrganizationRequest $request
+     * @return JsonResponse
+     */
+
+    public function store(OrganizationRequest $request): JsonResponse
     {
         $response = Organization::create([
             'user_id' => $request->user()->id,
@@ -29,9 +48,19 @@ class OrganizationController extends Controller
         if ($response) {
             return response()->json(['success' => true]);
         }
+
+        return response()->json(['success' => false]);
     }
 
-    public function updateOrganization(OrganizationRequest $request, $organizationId)
+    /**
+     * Update the specified organization.
+     *
+     * @param OrganizationRequest $request
+     * @param int $organizationId
+     * @return JsonResponse
+     */
+
+    public function update(OrganizationRequest $request, int $organizationId): JsonResponse
     {
         $organization = Organization::findOrFail($organizationId);
 
@@ -45,7 +74,9 @@ class OrganizationController extends Controller
         ]);
 
         if ($response) {
-            return $this->getOrganizations($request);
+            return $this->index($request);
         }
+
+        return response()->json(['success' => false]);
     }
 }

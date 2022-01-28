@@ -195,7 +195,7 @@
         <!-- Personal Info Modal -->
         <b-modal id="modal-personal-info" centered title="Personal Info" @ok="updatePersonalInfo">
             <b-form ref="personalInfo">
-                <b-form-group label="First Name">
+                <b-form-group label="First Name *">
                     <b-form-input
                         v-model="personalInfo.firstName"
                         type="text"
@@ -209,7 +209,7 @@
                         placeholder="Last Name"
                     ></b-form-input>
                 </b-form-group>
-                <b-form-group label="Email *">
+                <b-form-group label="Email (unique) *">
                     <b-form-input
                         v-model="personalInfo.email"
                         type="email"

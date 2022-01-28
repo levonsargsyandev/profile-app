@@ -2,13 +2,19 @@
 
 namespace App\Services;
 
-use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 
 class HelperService
 {
-    static function wordCountChecker($str, $max_count){
+    /**
+     * Check allowed words count of the string.
+     *
+     * @param string $str
+     * @param int $max_count
+     * @return bool
+     */
+    static function wordCountChecker(string $str, int $max_count): bool
+    {
         return Str::wordCount($str) <= $max_count;
     }
 }

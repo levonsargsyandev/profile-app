@@ -6,7 +6,7 @@ use App\Rules\MaxWords;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class ResourceCreateRequest
+ * Class ExperienceRequest
  *
  * @property $description
  */
@@ -17,7 +17,7 @@ class ExperienceRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'companyName' => [

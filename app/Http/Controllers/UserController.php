@@ -3,21 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
+/**
+ * Class UserController
+ */
 class UserController extends Controller
 {
     /**
      * Register a user
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function register(Request $request)
+
+    public function register(Request $request): JsonResponse
     {
         $request->validate([
+            'firstName' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'confirmed', 'min:6']
         ]);
@@ -32,9 +38,19 @@ class UserController extends Controller
         if ($response) {
             return response()->json(['success' => true]);
         }
+
+        return response()->json(['success' => false]);
     }
 
-    public function login(Request $request)
+
+    /**
+     * Login a user
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function login(Request $request): JsonResponse
     {
         $request->validate([
             'email' => ['required', 'email'],
@@ -45,19 +61,31 @@ class UserController extends Controller
             return response()->json(['success' => true, 'user' => Auth::user()]);
         }
 
-        throw ValidationException::withMessages([
-            'error' => ['The given data was invalid.']
-        ]);
+        return response()->json(['success' => false]);
     }
+
+    /**
+     * Logout a user
+     *
+     * @return void
+     */
 
     public function logout()
     {
         Auth::logout();
     }
 
-    public function updateUser(Request $request)
+
+    /**
+     * Update a user
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function updateUser(Request $request): JsonResponse
     {
-        if($request->email !== $request->user()->email){
+        if ($request->email !== $request->user()->email) {
             $request->validate([
                 'email' => ['required', 'email', 'unique:users']
             ]);
@@ -74,5 +102,7 @@ class UserController extends Controller
         if ($response) {
             return response()->json(['success' => true, 'user' => $user]);
         }
+
+        return response()->json(['success' => false]);
     }
 }
