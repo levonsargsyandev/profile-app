@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ComponentForGitTests from "./pages/ComponentForGitTests";
 import Home from "./pages/Home";
 
 Vue.use(VueRouter);
@@ -23,6 +24,10 @@ const routes = [
     {
         path:'/register',
         component:Register
+    },
+    {
+        path:'/comp',
+        component:ComponentForGitTests
     }
 ];
 
