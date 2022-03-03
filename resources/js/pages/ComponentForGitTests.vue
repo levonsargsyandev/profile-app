@@ -4,6 +4,7 @@
     <div>Second</div>
     <div>Third</div>
     <div>Fifth</div>
+    <div>Sixed</div>
   </div>
 </template>
 
