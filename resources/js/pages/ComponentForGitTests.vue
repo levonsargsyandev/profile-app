@@ -1,5 +1,8 @@
 <template>
-  
+  <div>
+      <div>first</div>
+      <div>second</div>
+  </div>
 </template>
 
 <script>
